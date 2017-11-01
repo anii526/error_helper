@@ -1,0 +1,55 @@
+{
+  "name": "typescript-webpack-starter",
+  "version": "0.2.0",
+  "description": "A damn simple starter for Typescript and Webpack",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "npm run clean && concurrently --kill-others \"npm run devApi\" ",
+    "devApi": "rimraf dist/server.js* && concurrently --kill-others \"webpack --watch\" ",
+    "clean": "rimraf dist/*",
+    "start": "node dist/server.js",
+    "killall:win": "taskkill /f /im node.exe",
+    "killall:macos": "killall node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emyann/typescript-webpack-starter"
+  },
+  "author": "yrenaudin",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.70",
+    "@types/node": "^8.0.47",
+    "awesome-typescript-loader": "^3.2.1",
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "ejs-loader": "^0.3.0",
+    "eslint": "^4.2.0",
+    "expose-loader": "^0.7.3",
+    "file-loader": "^1.1.5",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.29.0",
+    "rimraf": "^2.6.1",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "tslint": "^5.5.0",
+    "tslint-loader": "^3.5.3",
+    "typescript": "^2.6.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.3.0",
+    "webpack-dashboard": "^0.4.0",
+    "webpack-dev-server": "2.5.1"
+  },
+  "dependencies": {
+    "@types/body-parser": "^1.16.7",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.0",
+    "copy-webpack-plugin": "^4.2.0",
+    "lodash": "^4.17.4",
+    "nodemon": "^1.12.1",
+    "nodemon-webpack-plugin": "^0.1.5"
+  }
+}

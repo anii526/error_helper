@@ -1,0 +1,10 @@
+# Build results
+typings/**/*
+
+# Others
+~$*
+*~
+node_modules/
+src/build/
+coverage/
+.DS_Store
