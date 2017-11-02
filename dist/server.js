@@ -127,6 +127,7 @@ var ErrorType_1 = __webpack_require__(1);
 var bodyParser = __webpack_require__(8);
 var express_1 = __webpack_require__(0);
 var expressValidator = __webpack_require__(9);
+var fs = __webpack_require__(10);
 var router = express_1.Router();
 router.use(bodyParser.json());
 router.use(expressValidator());
@@ -134,6 +135,15 @@ router.get('/ping', function (req, res) {
     res.json({ time: +new Date() });
 });
 router.post('/v1/catch', function (req, res) {
+    console.log(req.headers);
+    var file = '/tmp/file.txt';
+    fs.outputFile(file, 'hello!', function (err) {
+        console.log(err); // => null
+        fs.readFile(file, 'utf8', function (err, data) {
+            if (err) return console.error(err);
+            console.log(data); // => hello!
+        });
+    });
     res.json({ time: +new Date() });
 });
 router.use(function (req, res, next) {
@@ -219,6 +229,12 @@ module.exports = require("body-parser");
 /***/ (function(module, exports) {
 
 module.exports = require("express-validator");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs-extra");
 
 /***/ })
 /******/ ])));

@@ -43,6 +43,7 @@
   "dependencies": {
     "@types/body-parser": "^1.16.7",
     "@types/express-validator": "^3.0.0",
+    "@types/fs-extra": "^4.0.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
@@ -50,6 +51,7 @@
     "concurrently": "^3.5.0",
     "copy-webpack-plugin": "^4.2.0",
     "express-validator": "^4.3.0",
+    "fs-extra": "^4.0.2",
     "lodash": "^4.17.4",
     "nodemon": "^1.12.1",
     "nodemon-webpack-plugin": "^0.1.5"

@@ -3,6 +3,7 @@ import { ErrorType } from '../errors/ErrorType';
 import * as bodyParser from 'body-parser';
 import { Router } from 'express';
 import expressValidator = require('express-validator');
+import * as fs from 'fs-extra';
 
 let router = Router();
 
@@ -14,6 +15,16 @@ router.get('/ping', (req, res) => {
 });
 
 router.post('/v1/catch', (req, res) => {
+    console.log(req.headers);
+    const file = '/tmp/file.txt';
+    fs.outputFile(file, 'hello!', err => {
+    console.log(err) // => null
+
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) return console.error(err)
+        console.log(data) // => hello!
+    })
+    })
     res.json({ time: +new Date });
 });
 
