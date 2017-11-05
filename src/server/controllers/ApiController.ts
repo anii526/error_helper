@@ -21,43 +21,34 @@ router.get('/ping', (req, res) => {
 router.post('/v1/catch', (req, res) => {
     const source = req.headers['user-agent'];
     const temphost = req.headers["host"];
-    let tempstr: string = ' ';
-    let hostname: string = ' ';
+
+    let tempstr, hostname: string = ' ';
+
     tempstr = _.isArray(source) ? source.join(' ') : source;
     hostname = _.isArray(temphost) ? temphost.join(' ') : temphost;
 
     let index = temphost.lastIndexOf(":");
-    if (index !== -1) {
+    if (index !== -1)
         hostname = hostname.substring(0, index);
-        // console.log(hostname);
-    }
+
     const ua = useragent.parse(tempstr);
     console.log("")
-    console.log("Хост: " + temphost)
-    console.log("")
-    console.log(ua)
-    // const data = new Date().valueOf();
-    console.log(new Date());
+    console.log(req.body);
+
     let now = moment().format();
-    console.log(now);
+    now = now.replace(/:/g, ".");
 
-    /*console.log(req);
-    console.log(req.headers);*/
-    // let filename = new Date() /*+ " " + ua.os + " " + ua.browser + " " + ua.version*/ + ".txt";
-    let filename = ua.os + " " + ua.browser + " " + ua.version + ".txt";
-    // const file = './' + hostname + '/' + filename;
+    let filename = now + " " + ua.os + " " + ua.browser + " " + ua.version + ".txt";
     const file = './' + hostname + '/' + filename;
-    console.log(file);
 
-    fs.outputFile(file, 'hello!', err => {
-    console.log(err) // => null
-
-    /*fs.readFile(file, 'utf8', (err, data) => {
-        if (err) return console.error(err)
-        console.log(data) // => hello!
-    })*/
-    })
-    res.json({ time: +new Date });
+    fs.outputFile(file, req.body, err => {
+        if (err) return console.error(err);
+        console.log('success!')
+        /*if (!req.session) {
+            throw new Error("Session doesn't exist");
+        }*/
+    });
+    res.json({ msg: "success" });
 });
 
 router.use((req, res, next) => res.status(404).json({ error: 'Not found' }));

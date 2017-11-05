@@ -141,39 +141,27 @@ router.get('/ping', function (req, res) {
 router.post('/v1/catch', function (req, res) {
     var source = req.headers['user-agent'];
     var temphost = req.headers["host"];
-    var tempstr = ' ';
-    var hostname = ' ';
+    var tempstr,
+        hostname = ' ';
     tempstr = _.isArray(source) ? source.join(' ') : source;
     hostname = _.isArray(temphost) ? temphost.join(' ') : temphost;
     var index = temphost.lastIndexOf(":");
-    if (index !== -1) {
-        hostname = hostname.substring(0, index);
-        // console.log(hostname);
-    }
+    if (index !== -1) hostname = hostname.substring(0, index);
     var ua = useragent.parse(tempstr);
     console.log("");
-    console.log("Хост: " + temphost);
-    console.log("");
-    console.log(ua);
-    // const data = new Date().valueOf();
-    console.log(new Date());
+    console.log(req.body);
     var now = moment().format();
-    console.log(now);
-    /*console.log(req);
-    console.log(req.headers);*/
-    // let filename = new Date() /*+ " " + ua.os + " " + ua.browser + " " + ua.version*/ + ".txt";
-    var filename = ua.os + " " + ua.browser + " " + ua.version + ".txt";
-    // const file = './' + hostname + '/' + filename;
+    now = now.replace(/:/g, ".");
+    var filename = now + " " + ua.os + " " + ua.browser + " " + ua.version + ".txt";
     var file = './' + hostname + '/' + filename;
-    console.log(file);
-    fs.outputFile(file, 'hello!', function (err) {
-        console.log(err); // => null
-        /*fs.readFile(file, 'utf8', (err, data) => {
-            if (err) return console.error(err)
-            console.log(data) // => hello!
-        })*/
+    fs.outputFile(file, req.body, function (err) {
+        if (err) return console.error(err);
+        console.log('success!');
+        /*if (!req.session) {
+            throw new Error("Session doesn't exist");
+        }*/
     });
-    res.json({ time: +new Date() });
+    res.json({ msg: "success" });
 });
 router.use(function (req, res, next) {
     return res.status(404).json({ error: 'Not found' });
