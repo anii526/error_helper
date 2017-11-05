@@ -128,6 +128,10 @@ var bodyParser = __webpack_require__(8);
 var express_1 = __webpack_require__(0);
 var expressValidator = __webpack_require__(9);
 var fs = __webpack_require__(10);
+var useragent = __webpack_require__(11);
+var _ = __webpack_require__(12);
+var moment = __webpack_require__(13);
+// const useragent = require('express-useragent');
 var router = express_1.Router();
 router.use(bodyParser.json());
 router.use(expressValidator());
@@ -135,14 +139,39 @@ router.get('/ping', function (req, res) {
     res.json({ time: +new Date() });
 });
 router.post('/v1/catch', function (req, res) {
-    console.log(req.headers);
-    var file = '/tmp/file.txt';
+    var source = req.headers['user-agent'];
+    var temphost = req.headers["host"];
+    var tempstr = ' ';
+    var hostname = ' ';
+    tempstr = _.isArray(source) ? source.join(' ') : source;
+    hostname = _.isArray(temphost) ? temphost.join(' ') : temphost;
+    var index = temphost.lastIndexOf(":");
+    if (index !== -1) {
+        hostname = hostname.substring(0, index);
+        // console.log(hostname);
+    }
+    var ua = useragent.parse(tempstr);
+    console.log("");
+    console.log("Хост: " + temphost);
+    console.log("");
+    console.log(ua);
+    // const data = new Date().valueOf();
+    console.log(new Date());
+    var now = moment().format();
+    console.log(now);
+    /*console.log(req);
+    console.log(req.headers);*/
+    // let filename = new Date() /*+ " " + ua.os + " " + ua.browser + " " + ua.version*/ + ".txt";
+    var filename = ua.os + " " + ua.browser + " " + ua.version + ".txt";
+    // const file = './' + hostname + '/' + filename;
+    var file = './' + hostname + '/' + filename;
+    console.log(file);
     fs.outputFile(file, 'hello!', function (err) {
         console.log(err); // => null
-        fs.readFile(file, 'utf8', function (err, data) {
-            if (err) return console.error(err);
-            console.log(data); // => hello!
-        });
+        /*fs.readFile(file, 'utf8', (err, data) => {
+            if (err) return console.error(err)
+            console.log(data) // => hello!
+        })*/
     });
     res.json({ time: +new Date() });
 });
@@ -235,6 +264,24 @@ module.exports = require("express-validator");
 /***/ (function(module, exports) {
 
 module.exports = require("fs-extra");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-useragent");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
 
 /***/ })
 /******/ ])));

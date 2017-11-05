@@ -42,17 +42,21 @@
   },
   "dependencies": {
     "@types/body-parser": "^1.16.7",
+    "@types/express-useragent": "^0.2.20",
     "@types/express-validator": "^3.0.0",
     "@types/fs-extra": "^4.0.3",
+    "@types/moment": "^2.13.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.0",
     "copy-webpack-plugin": "^4.2.0",
+    "express-useragent": "^1.0.8",
     "express-validator": "^4.3.0",
     "fs-extra": "^4.0.2",
     "lodash": "^4.17.4",
+    "moment": "^2.19.1",
     "nodemon": "^1.12.1",
     "nodemon-webpack-plugin": "^0.1.5"
   }

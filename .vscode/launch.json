@@ -1,15 +1,51 @@
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Attach with sourcemaps",
-            "type": "chrome",
-            "request": "attach",
-            "sourceMaps": true,
-            "port": 9222,
-            "diagnosticLogging": true,
-            "webRoot": "${workspaceRoot}/dist"
-
-        }
-    ]
-}
+{ 
+    // Use IntelliSense to learn about possible Node.js debug attributes. 
+    // Hover to view descriptions of existing attributes. 
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387 
+    "version": "0.2.0", 
+    "configurations": [{ 
+    "name": "Debug Chrome", 
+    "type": "chrome", 
+    "request": "launch", 
+    "webRoot": "${workspaceRoot}", 
+    "url": "http://192.168.61.36:8080", 
+    "userDataDir": "${workspaceRoot}/.vscode/chrome", 
+    "sourceMaps": true, 
+    "preLaunchTask": "dev", 
+    "smartStep": true, 
+    "internalConsoleOptions": "openOnSessionStart", 
+    "skipFiles": [ 
+    "node_modules/**" 
+    ], 
+    "sourceMapPathOverrides": { 
+    "webpack:///*": "${webRoot}/*" 
+    } 
+    }, 
+    { 
+    "type": "node", 
+    "request": "launch", 
+    "name": "Launch API", 
+    "runtimeExecutable": "nodemon", 
+    "runtimeArgs": [ 
+    "--debug=5858" 
+    ], 
+    "program": "${workspaceRoot}/dist/api-server.js", 
+    "restart": true, 
+    "port": 5858, 
+    "console": "integratedTerminal", 
+    "internalConsoleOptions": "neverOpen", 
+    "sourceMaps": true, 
+    "outFiles": "${workspaceRoot}/dist/", 
+    "smartStep": true 
+    }, 
+    { 
+    "name": "Attach to API", 
+    "type": "node", 
+    "request": "attach", 
+    "port": 5858, 
+    "sourceMaps": true, 
+    "outFiles": "${workspaceRoot}/dist/", 
+    "smartStep": true 
+    } 
+    ] 
+    }
