@@ -7,7 +7,8 @@ import * as fs from 'fs-extra';
 import * as useragent from 'express-useragent';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-// const useragent = require('express-useragent');
+import * as sanitize from 'sanitize-filename';
+
 
 let router = Router();
 
@@ -27,21 +28,24 @@ router.post('/v1/catch', (req, res) => {
     tempstr = _.isArray(source) ? source.join(' ') : source;
     hostname = _.isArray(temphost) ? temphost.join(' ') : temphost;
 
-    let index = temphost.lastIndexOf(":");
+    const index = temphost.lastIndexOf(":");
     if (index !== -1)
         hostname = hostname.substring(0, index);
 
     const ua = useragent.parse(tempstr);
-    console.log("")
-    console.log(req.body);
 
-    let now = moment().format();
-    now = now.replace(/:/g, ".");
+    let now = moment().format().replace(/:/g, ".");
 
     let filename = now + " " + ua.os + " " + ua.browser + " " + ua.version + ".txt";
-    const file = './' + hostname + '/' + filename;
+    let file = './' + hostname + '/' + filename;
 
-    fs.outputFile(file, req.body, err => {
+    let data;
+    try {
+        data = JSON.stringify(req.body);
+    } catch (error) {
+        return console.error('Bad JSON ' + error);
+    }
+    fs.outputFile(file, data, err => {
         if (err) return console.error(err);
         console.log('success!')
         /*if (!req.session) {

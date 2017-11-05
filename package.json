@@ -46,6 +46,7 @@
     "@types/express-validator": "^3.0.0",
     "@types/fs-extra": "^4.0.3",
     "@types/moment": "^2.13.0",
+    "@types/sanitize-filename": "^1.1.28",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
@@ -58,6 +59,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "nodemon": "^1.12.1",
-    "nodemon-webpack-plugin": "^0.1.5"
+    "nodemon-webpack-plugin": "^0.1.5",
+    "sanitize-filename": "^1.6.1"
   }
 }

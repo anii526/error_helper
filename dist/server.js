@@ -131,7 +131,6 @@ var fs = __webpack_require__(10);
 var useragent = __webpack_require__(11);
 var _ = __webpack_require__(12);
 var moment = __webpack_require__(13);
-// const useragent = require('express-useragent');
 var router = express_1.Router();
 router.use(bodyParser.json());
 router.use(expressValidator());
@@ -148,13 +147,16 @@ router.post('/v1/catch', function (req, res) {
     var index = temphost.lastIndexOf(":");
     if (index !== -1) hostname = hostname.substring(0, index);
     var ua = useragent.parse(tempstr);
-    console.log("");
-    console.log(req.body);
-    var now = moment().format();
-    now = now.replace(/:/g, ".");
+    var now = moment().format().replace(/:/g, ".");
     var filename = now + " " + ua.os + " " + ua.browser + " " + ua.version + ".txt";
     var file = './' + hostname + '/' + filename;
-    fs.outputFile(file, req.body, function (err) {
+    var data;
+    try {
+        data = JSON.stringify(req.body);
+    } catch (error) {
+        return console.error('Bad JSON ' + error);
+    }
+    fs.outputFile(file, data, function (err) {
         if (err) return console.error(err);
         console.log('success!');
         /*if (!req.session) {

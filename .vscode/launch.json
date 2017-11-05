@@ -27,24 +27,24 @@
     "name": "Launch API", 
     "runtimeExecutable": "nodemon", 
     "runtimeArgs": [ 
-    "--debug=5858" 
+    "--inspect=9222" 
     ], 
-    "program": "${workspaceRoot}/dist/api-server.js", 
+    "program": "${workspaceRoot}/dist/server.js", 
     "restart": true, 
-    "port": 5858, 
+    "port": 9222, 
     "console": "integratedTerminal", 
     "internalConsoleOptions": "neverOpen", 
     "sourceMaps": true, 
-    "outFiles": "${workspaceRoot}/dist/", 
+    "outFiles": ["${workspaceRoot}/dist/"], 
     "smartStep": true 
     }, 
     { 
     "name": "Attach to API", 
     "type": "node", 
     "request": "attach", 
-    "port": 5858, 
+    "port": 9222, 
     "sourceMaps": true, 
-    "outFiles": "${workspaceRoot}/dist/", 
+    "outFiles": ["${workspaceRoot}/dist/"], 
     "smartStep": true 
     } 
     ] 
